@@ -1,0 +1,24 @@
+{% extends 'club.html' %}
+{% block content %}
+<body>
+  <h1>{{ rows1[0] }}</h1>
+  <h4>{{ rows1[1] }}</h4>
+  <h6>{{ rows1[2] }}</h6>
+</body>
+<h4>Posts</h4>
+{% for row in rows %}
+<div class="card mb-3" style="max-width: 300px;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ row[0] }}</h5>
+    <p class="card-text">{{ row[1] }}</p>
+    <p class="card-text">Venue: {{ row[3] }}</p>
+    <p class="card-text">Time: {{ row[4] }}-{{ row[5] }}</p>
+    <p class="card-text">Date: {{ row[6] }}</p>
+    <p class="card-text">
+      <small class="text-body-secondary">Last updated: {{ row[2] }}</small>
+    </p>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

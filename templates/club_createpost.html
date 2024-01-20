@@ -1,0 +1,99 @@
+{% extends 'club.html' %}
+<style>
+  .table-container {
+    display: grid;
+    place-items: center;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px; /* Set the maximum width of the table */
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+</style>
+{% block content %}
+    <h2>Create Post</h2>
+  <form method="POST">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content:</label>
+      <textarea class="form-control" id="content" name="content" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="venue">Select MU:</label>
+      {% for mu in MU %}
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="mu" id="mu_{{ mu }}" value="{{ mu }}" required>
+          <label class="form-check-label" for="mu_{{ mu }}">{{ mu }}</label>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      <label for="start_time">Start Time:</label>
+      <div class="input-group">
+        <input type="number" class="form-control" id="start_time_hours" name="start_time_hours" min="0" max="23" placeholder="HH" required>
+        <span class="input-group-text">:</span>
+        <input type="number" class="form-control" id="start_time_minutes" name="start_time_minutes" min="0" max="59" placeholder="MM" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="end_time">End Time:</label>
+      <div class="input-group">
+        <input type="number" class="form-control" id="end_time_hours" name="end_time_hours" min="0" max="23" placeholder="HH" required>
+        <span class="input-group-text">:</span>
+        <input type="number" class="form-control" id="end_time_minutes" name="end_time_minutes" min="0" max="59" placeholder="MM" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <select class="form-control" id="date" name="date" required>
+        <option value="">Select a date</option>
+        {% for d in date %}
+          <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  <p>Things to remember:</p>
+      <ul><li>Time follows 24hr</li></ul>
+  </form>
+    <div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+          <th>Location</th>
+        <th>Start_Time</th>
+        <th>End_Time</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for alloc in allocated %}
+      <tr>
+        <td>{{ alloc[0] }}</td>
+        <td>{{ alloc[1] }}</td>
+        <td>{{ alloc[2] }}</td>
+        <td>{{ alloc[3] }}</td>
+         <td>{{ alloc[4] }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
